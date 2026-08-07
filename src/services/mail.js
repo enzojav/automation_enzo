@@ -1,8 +1,16 @@
 const nodemailer = require("nodemailer");
 const dns = require("dns");
 
-// Fuerza a Node.js a usar IPv4 antes que IPv6
+// Fuerza a Node.js a preferir IPv4 (no siempre alcanza por sí solo, ver 'lookup' abajo)
 dns.setDefaultResultOrder("ipv4first");
+
+// Railway (y otras plataformas similares) no tienen salida IPv6 hacia Gmail.
+// La opción `family: 4` de nodemailer no siempre fuerza esto de forma confiable
+// en todas las combinaciones de Node/nodemailer, así que forzamos la resolución
+// DNS explícitamente con una función `lookup` custom que solo pide registros A (IPv4).
+function forceIPv4Lookup(hostname, options, callback) {
+    dns.lookup(hostname, { family: 4 }, callback);
+}
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -15,6 +23,7 @@ const transporter = nodemailer.createTransport({
     },
 
     family: 4,
+    lookup: forceIPv4Lookup,
 
     tls: {
         rejectUnauthorized: false,
