@@ -97,7 +97,7 @@ function clearFieldErrors() {
   form.querySelectorAll('.invalid').forEach((el) => el.classList.remove('invalid'));
 }
 
-form.addEventListener('submit', async (e) => {
+
   e.preventDefault();
   clearFieldErrors();
   setMsg('', '');
@@ -126,43 +126,80 @@ form.addEventListener('submit', async (e) => {
     form.email.classList.add('invalid');
     setMsg('Ingresá un email válido.', 'error');
     return;
-  }
+  } 
+  form.addEventListener('submit', (e) => {
 
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Enviando…';
+    e.preventDefault();
 
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        nombre,
-        empresa,
-        email,
-        equipo,
-        alcance,
-        mensaje,
-        checklist,
-        website: form.website.value, // honeypot, siempre vacío para personas
-      }),
-    });
+    clearFieldErrors();
+    setMsg('', '');
 
-    const data = await res.json();
+    const nombre = form.nombre.value.trim();
+    const empresa = form.empresa.value.trim();
+    const email = form.email.value.trim();
+    const equipo = form.equipo.value;
+    const alcance = form.alcance.value;
+    const mensaje = form.mensaje.value.trim();
 
-    if (!res.ok || !data.ok) {
-      setMsg(data.error || 'No se pudo enviar el mensaje. Probá de nuevo.', 'error');
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Solicitar el diagnóstico';
-      return;
+    if (nombre.length < 2) {
+        form.nombre.classList.add('invalid');
+        setMsg('Ingresá tu nombre.', 'error');
+        return;
     }
 
-    submitBtn.textContent = 'Solicitud recibida ✓';
-    submitBtn.classList.add('sent');
-    setMsg('Te respondemos con dos horarios posibles en un día hábil.', 'success');
-    form.reset();
-  } catch (err) {
-    setMsg('No se pudo conectar con el servidor. Probá de nuevo en un momento.', 'error');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Solicitar el diagnóstico';
-  }
+    if (empresa.length < 2) {
+        form.empresa.classList.add('invalid');
+        setMsg('Ingresá el nombre de tu empresa.', 'error');
+        return;
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        form.email.classList.add('invalid');
+        setMsg('Ingresá un email válido.', 'error');
+        return;
+    }
+
+    const subject = encodeURIComponent(
+        `Consulta Nexxo Automation - ${empresa}`
+    );
+
+    const body = encodeURIComponent(
+`Hola Enzo,
+
+Quiero solicitar un diagnóstico.
+
+Nombre: ${nombre}
+
+Empresa: ${empresa}
+
+Email: ${email}
+
+Equipo:
+${equipo}
+
+Alcance:
+${alcance}
+
+Mensaje:
+
+${mensaje}`
+    );
+
+    window.location.href =
+        `mailto:TUEMAIL@gmail.com?subject=${subject}&body=${body}`;
+
+    submitBtn.textContent = 'Abriendo correo...';
+
+    setTimeout(() => {
+
+        submitBtn.textContent = 'Solicitar el diagnóstico';
+        form.reset();
+
+        setMsg(
+            'Si no se abrió ninguna aplicación de correo, escribinos por WhatsApp.',
+            'success'
+        );
+
+    }, 1500);
+
 });
