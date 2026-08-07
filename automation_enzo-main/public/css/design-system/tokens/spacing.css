@@ -1,0 +1,11 @@
+:root{
+  --space-0:0px; --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:24px; --space-6:32px; --space-7:40px; --space-8:56px; --space-9:80px;
+  --space-10:120px; --space-11:160px;
+
+  --gutter-inline:24px; /* @kind spacing */      /* mobile page gutter */
+  --container-max:1200px; /* @kind spacing */    /* marketing + app content width */
+  --container-narrow:720px; /* @kind spacing */  /* prose */
+  --section-y:120px; /* @kind spacing */         /* vertical rhythm between marketing sections */
+  --stack-tight:8px; /* @kind spacing */ --stack:16px; /* @kind spacing */ --stack-loose:32px; /* @kind spacing */
+}

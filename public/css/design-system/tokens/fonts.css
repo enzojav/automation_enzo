@@ -1,0 +1,9 @@
+/* Nexo webfonts. SF Pro Display is not licensed for web distribution; Geist (Vercel) is the
+   substitute for display + UI text, JetBrains Mono for code/data.
+   Se carga vía <link> en el <head> de index.html (más rápido que @import). */
+
+:root{
+  --font-display:"Geist","SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-text:"Geist","SF Pro Text",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono","SF Mono",ui-monospace,monospace;
+}

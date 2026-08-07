@@ -1,0 +1,64 @@
+:root{
+  /* Neutrals — the brand is built on light, not colour */
+  --white:#FFFFFF;
+  --gray-50:#FAFAFC;
+  --gray-100:#F5F5F7;
+  --gray-200:#EDEDF0;
+  --gray-300:#DEDEE3;
+  --gray-400:#C4C4CC;
+  --gray-500:#9A9AA3;
+  --gray-600:#6E6E76;
+  --gray-700:#48484E;
+  --graphite:#1C1C1E;
+  --black:#0B0B0D;
+
+  /* Accents */
+  --blue:#3B82F6;
+  --blue-600:#2A6EE0;
+  --blue-100:#E5EFFE;
+  --purple:#7C5CFF;
+  --purple-600:#6847E8;
+  --purple-100:#EDE8FF;
+  --cyan:#5AC8FA;
+  --cyan-100:#E3F5FE;
+
+  /* Semantic status */
+  --success:#20A87A;
+  --success-100:#E1F5EE;
+  --warning:#E1A116;
+  --warning-100:#FBF1DA;
+  --danger:#E5484D;
+  --danger-100:#FCE7E8;
+
+  /* Gradients — used sparingly, for emphasis only */
+  --grad-blue-purple:linear-gradient(135deg,#3B82F6 0%,#7C5CFF 100%); /* @kind color */
+  --grad-blue-cyan:linear-gradient(135deg,#3B82F6 0%,#5AC8FA 100%); /* @kind color */
+  --grad-purple-indigo:linear-gradient(135deg,#7C5CFF 0%,#4338CA 100%); /* @kind color */
+  --grad-luminous:radial-gradient(120% 120% at 50% 0%,#FFFFFF 0%,#F3F5FF 45%,#EAF1FE 100%); /* @kind color */
+
+  /* Semantic aliases */
+  --text-primary:var(--graphite);
+  --text-secondary:var(--gray-600);
+  --text-tertiary:var(--gray-500);
+  --text-inverse:var(--white);
+  --text-accent:var(--blue-600);
+  --text-link:var(--blue-600);
+  --text-link-hover:var(--purple-600);
+
+  --surface-page:var(--white);
+  --surface-subtle:var(--gray-100);
+  --surface-card:var(--white);
+  --surface-raised:var(--white);
+  --surface-inverse:var(--black);
+  --surface-glass:rgba(255,255,255,.68);
+  --surface-glass-dark:rgba(11,11,13,.56);
+
+  --border-hairline:rgba(11,11,13,.08);
+  --border-strong:rgba(11,11,13,.14);
+  --border-focus:var(--blue);
+  --border-inverse:rgba(255,255,255,.14);
+
+  --accent-primary:var(--blue);
+  --accent-secondary:var(--purple);
+  --accent-tertiary:var(--cyan);
+}

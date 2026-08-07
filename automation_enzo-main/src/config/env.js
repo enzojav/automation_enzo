@@ -1,0 +1,26 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
+const required = ['PORT', 'ALLOWED_ORIGIN', 'SMTP_USER', 'SMTP_PASS'];
+const missing = required.filter((key) => !process.env[key]);
+
+if (missing.length > 0) {
+  // Falla rápido y explícito en vez de arrancar con configuración incompleta.
+  console.error(`Faltan variables de entorno obligatorias: ${missing.join(', ')}`);
+  console.error('Copiá backend/.env.example a backend/.env y completalo.');
+  process.exit(1);
+}
+
+module.exports = {
+  port: Number(process.env.PORT),
+  nodeEnv: process.env.NODE_ENV || 'development',
+  allowedOrigin: process.env.ALLOWED_ORIGIN,
+  // Cuenta de Gmail que envía el mail (usa contraseña de aplicación, no la
+  // contraseña normal de la cuenta).
+  smtpUser: process.env.SMTP_USER,
+  smtpPass: process.env.SMTP_PASS,
+  // A dónde llega la notificación del lead. Si no se define, se manda a la
+  // misma cuenta que envía (SMTP_USER).
+  notifyEmail: process.env.NOTIFY_EMAIL || process.env.SMTP_USER,
+  isProduction: process.env.NODE_ENV === 'production',
+};
