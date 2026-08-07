@@ -14,8 +14,8 @@ function forceIPv4Lookup(hostname, options, callback) {
 
 const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
-    port: 587,
-    secure: false,
+    port: 465,
+    secure: true, // SSL directo (puerto 465), en vez de STARTTLS sobre 587
 
     auth: {
         user: process.env.SMTP_USER,
